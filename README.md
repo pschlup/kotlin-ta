@@ -51,7 +51,7 @@ val fifteenMinuteSeries = timeSeriesManager.m15
 A simple helper for reading chart bars (candlesticks) from CSV files is included:
 
 ```kotlin
-val bars = CsvBarSource.readCsvData("chart_data_BTC_USDT_p5_730d.csv")
+val bars = readCsvBars("chart_data_BTC_USDT_p5_730d.csv")
 
 for (val bar in bars) {
   timeSeriesManager += bar
@@ -111,5 +111,5 @@ Like Indicators, signals are dynamic and are recalculated at each bar position.
 
 ```kotlin
 val shouldEnterTrade: Boolean = entrySignal.latestValue // Same as entrySignal[0]
-val shouldExitTrade: Boolean = entrySignal.latestValue // Same as entrySignal[0]
+val shouldExitTrade: Boolean = exitSignal[1] // The exit signal 1 hour ago
 ```

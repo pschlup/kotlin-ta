@@ -6,9 +6,9 @@ import com.pschlup.ta.backtest.BackTester
 import com.pschlup.ta.backtest.TradeType
 import com.pschlup.ta.indicators.*
 import com.pschlup.ta.strategy.*
-import com.pschlup.ta.timeseries.CsvBarSource
 import com.pschlup.ta.timeseries.TimeFrame
 import com.pschlup.ta.timeseries.TimeSeriesManager
+import com.pschlup.ta.timeseries.readCsvBars
 
 /** A sample back tester and strategy implementation. */
 object BackTestDemo {
@@ -32,7 +32,7 @@ object BackTestDemo {
       // The % fee charged by the exchange in each trade. E.g. Binance charges 0.1% per trade.
       feePerTrade = 0.001,
       // Defines the historical data to run the backtest over.
-      inputBars = CsvBarSource.readCsvData("chart_data_BTC_USDT_p5_730d.csv"),
+      inputBars = readCsvBars("chart_data_BTC_USDT_p5_730d.csv"),
       // Defines the factory method that builds the trading strategy when needed.
       strategyFactory = { seriesManager ->
         makeStrategy(seriesManager)
@@ -81,11 +81,11 @@ object BackTestDemo {
 
   private fun printReport(report: BackTestReport) {
     println("----------------------------------")
-    println(String.format("Finished backtest with %d trades", report.tradeCount))
+    println("Finished backtest with ${report.tradeCount} trades")
     println("----------------------------------")
 
     // Input parameters
-    println(String.format("Pyramiding limit   : %d", report.pyramidingLimit))
+    println("Pyramiding limit   : ${report.pyramidingLimit}")
     println(String.format("Account risk/trade : %.1f%%", 100.0 * report.betSize))
     println("----------------------------------")
 
