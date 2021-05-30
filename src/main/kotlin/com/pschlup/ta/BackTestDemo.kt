@@ -34,7 +34,9 @@ object BackTestDemo {
       // Defines the historical data to run the backtest over.
       inputBars = CsvBarSource.readCsvData("chart_data_BTC_USDT_p5_730d.csv"),
       // Defines the factory method that builds the trading strategy when needed.
-      strategyFactory = { seriesManager -> buildStrategy(seriesManager) },
+      strategyFactory = { seriesManager ->
+        makeStrategy(seriesManager)
+      },
       // Defines the factory method that builds the stop-loss price indicator.
       stopLoss = { timeSeries ->
         timeSeries.h4.volatilityStop(length = 4, multiplier = 0.2)
@@ -48,9 +50,9 @@ object BackTestDemo {
     printReport(report)
   }
 
-  private fun buildStrategy(seriesManager: TimeSeriesManager): Strategy {
+  private fun makeStrategy(seriesManager: TimeSeriesManager): Strategy {
 
-    // Identifies the timeframes our indicators will use.
+    // The timeframes our indicators will use.
     val h1 = seriesManager.h1 // 1 hour
     val h4 = seriesManager.h4 // 4 hours
 

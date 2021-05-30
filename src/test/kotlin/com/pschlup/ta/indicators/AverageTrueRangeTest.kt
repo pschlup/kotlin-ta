@@ -21,6 +21,7 @@ internal class AverageTrueRangeTest {
   fun `should compute value`() {
     val atr = timeSeries.averageTrueRange(14)
 
+    // Double-check values with another source
     assertThat(atr.valueAt(0))
       .isWithin(0.0001).of(47.8222)
     assertThat(atr.valueAt(1))

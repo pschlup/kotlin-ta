@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.pschlup.ta.strategy
 
 import com.pschlup.ta.indicators.Indicator
@@ -13,6 +15,8 @@ fun interface Signal {
 
   operator fun get(index: Int): Boolean = value(index)
 }
+
+val Signal.latestValue: Boolean get() = this[0]
 
 // ===========================================================
 // Boolean operations used to combine multiple signals.

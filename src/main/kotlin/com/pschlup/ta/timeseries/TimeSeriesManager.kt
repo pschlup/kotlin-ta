@@ -24,7 +24,7 @@ class TimeSeriesManager(
   }
 
   /** Merges the bar into all time series. */
-  fun addBar(bar: Bar) {
+  operator fun plusAssign(bar: Bar) {
     require(bar.timeFrame === inputTimeFrame)
     series.values.forEach { s ->
       s += bar

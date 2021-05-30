@@ -10,10 +10,15 @@ import java.time.Instant
 /**
  * A simple source of time series bars, useful for initialization and backtesting.
  *
- * The header (first row) is ignored. Extra columns are ignored.
+ * The file format should strictly be:
+ *    ISO_timestamp,open_price,high_price,low_price,close_price
  *
- * The file format should be:
- * ISO_timestamp;open_price;high_price;low_price;close_price
+ * The header (first row) and extra columns are ignored.
+ *
+ * For example:
+ *    "date","open","high","low","close","volume"
+ *    "2019-04-19T18:35:00Z","5268.85093244","5270.56328683","5268.85093244","5270.56328683","552.51720638"
+ *    "2019-04-19T18:40:00Z","5268.03011026","5277.2151644","5268.03011026","5276.31485716","2358.48058912"
  */
 object CsvBarSource {
   fun readCsvData(fileName: String): List<Bar> = readCsvData(FileReader(File(fileName)))
@@ -24,10 +29,10 @@ object CsvBarSource {
     CSVReader(reader).use { csvReader ->
       val rows = csvReader.readAll()
       // Detects the timeframe by peeking at some consecutive rows.
-      val timeFrame = TimeFrame.of(rows[3].openTime - rows[4].openTime)
+      val timeFrame = TimeFrame.of(duration = rows[3].openTime - rows[2].openTime)
       rows
         .drop(1) // Skips headers
-        .map { row: Array<String> ->
+        .map { row ->
           Bar(
             timeFrame = timeFrame,
             openTime = row.openTime,
@@ -41,7 +46,7 @@ object CsvBarSource {
     }
 }
 
-private operator fun Instant.minus(otherInstant: Instant) = Duration.between(this, otherInstant)
+private operator fun Instant.minus(otherInstant: Instant) = Duration.between(this, otherInstant).abs()
 
 // Maps row columns to OHLCV values
 

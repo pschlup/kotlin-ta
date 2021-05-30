@@ -20,7 +20,7 @@ object BackTester {
     )
 
     for (inputBar in inputBars) {
-      timeSeriesManager.addBar(inputBar)
+      timeSeriesManager += inputBar
       val currentPrice = inputBar.close
 
       // Closes stopped trades
