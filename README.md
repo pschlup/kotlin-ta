@@ -40,7 +40,6 @@ Time series are managed by the TimeSeriesManager class. It has an input time fra
 time frame or at least the fastest time frame you intend to use in your analysis.
 
 ```kotlin
-// 
 val timeSeriesManager = TimeSeriesManager(inputTimeFrame = TimeFrame.M15)
 
 // Obtain a TimeSeries for a specific time frame:
