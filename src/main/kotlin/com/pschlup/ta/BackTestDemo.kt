@@ -32,7 +32,7 @@ object BackTestDemo {
       // The % fee charged by the exchange in each trade. E.g. Binance charges 0.1% per trade.
       feePerTrade = 0.001,
       // Defines the historical data to run the backtest over.
-      inputBars = readCsvBars("chart_data_BTC_USDT_p5_730d.csv"),
+      inputBars = readCsvBars("sampledata/chart_data_BTC_USDT_p5_730d.csv"),
       // Defines the factory method that builds the trading strategy when needed.
       strategyFactory = { seriesManager ->
         makeStrategy(seriesManager)
