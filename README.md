@@ -1,4 +1,4 @@
-# talib - Kotlin Technical Analysis library
+# kotlin-ta - Kotlin Technical Analysis library
 
 A TA (Technical Analysis) and backtesting library with support for multi-timeframe analysis for Kotlin.
 
